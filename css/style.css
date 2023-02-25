@@ -1,0 +1,206 @@
+/* Extra small devices (phones, 600px and down) */ /* AND */ /* Small devices (portrait tablets and large phones, 600px and up) */
+/* Medium devices (landscape tablets, 768px and up) */
+/* Large devices (laptops/desktops, 992px and up) */
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto";
+  font-size: 12px;
+  color: #fff;
+  background: linear-gradient(130.36deg, #000000 0%, #272727 44.03%, #494949 99.99%, #727272 100%);
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "nav nav" "main main" "about about" "skills skills" "projects projects" "companies companies";
+}
+
+nav {
+  grid-area: nav;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  align-items: center;
+  height: 4rem;
+}
+nav .nav-items,
+nav .nav-contact-links {
+  display: flex;
+  align-items: center;
+}
+nav a {
+  display: block;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+}
+nav .nav-item a {
+  color: #fff;
+  font-weight: 700;
+}
+nav .nav-item a:hover {
+  color: #70ff00;
+}
+nav .nav-item .contact {
+  border: 4px solid transparent;
+  -o-border-image: linear-gradient(#70ff00, #fff) 1;
+     border-image: linear-gradient(#70ff00, #fff) 1;
+}
+nav .nav-item .contact:hover {
+  border: 4px solid #70ff00;
+}
+nav .logo a {
+  font-weight: 900;
+  font-size: 1.2em;
+  color: #fff;
+}
+nav .logo a span {
+  color: #828282;
+}
+
+main {
+  grid-area: main;
+}
+main .my-details {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  height: 100vh;
+  grid-template-areas: "my-details-image my-details-image" "my-details-headline my-details-headline";
+  justify-items: center;
+  align-items: center;
+}
+main .my-details-headline {
+  grid-area: my-details-headline;
+}
+main .my-details-headline .hello {
+  font-weight: 500;
+  font-size: 2em;
+}
+main .my-details-headline .name {
+  font-weight: 800;
+  font-size: 4em;
+  letter-spacing: 0.1em;
+  line-height: 1.3em;
+  color: #70ff00;
+}
+main .my-details-headline .title {
+  font-weight: 700;
+  font-size: 2em;
+  margin: 1rem 0;
+}
+main .my-details-headline .total-experience {
+  font-weight: 300;
+  font-size: 2em;
+  text-transform: uppercase;
+}
+main .my-details-headline .total-experience span {
+  display: inline-block;
+  color: #828282;
+}
+main .my-details-headline .total-experience .years {
+  font-size: 3em;
+  font-weight: 700;
+}
+main .my-details-image {
+  grid-area: my-details-image;
+  background-color: cadetblue;
+}
+
+@media only screen and (min-width: 768px) {
+  main .my-details {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "my-details-headline  my-details-image";
+  }
+}
+.about,
+.skills,
+.projects,
+.companies {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0 auto;
+  width: 90vw;
+}
+
+.about {
+  grid-area: about;
+}
+.about .about-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "about-me" "about-actions";
+}
+.about .about-content .about-me {
+  grid-area: about-me;
+  margin-bottom: 2em;
+}
+.about .about-content .about-actions {
+  grid-area: about-actions;
+}
+
+@media only screen and (min-width: 768px) {
+  .about .about-content {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "about-me about-actions";
+  }
+}
+.about-actions {
+  width: 40vw;
+  margin: 0 auto;
+}
+.about-actions .action-card {
+  background-color: #4f4f4f;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem auto;
+  box-shadow: 0px 4px 10px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 1rem 1rem;
+}
+.about-actions .action-card .text .title {
+  font-size: 1.3em;
+  padding-bottom: 0.5em;
+  font-weight: 700;
+}
+.about-actions .action-card .icon {
+  font-size: 2em;
+}
+
+.p-color {
+  color: #70ff00;
+}
+
+.header {
+  color: #70ff00;
+  line-height: 57px;
+  margin: 2rem 0;
+  font-size: 2em;
+  font-weight: 700;
+}
+.header span {
+  color: #fff;
+}
+
+.skills {
+  grid-area: skills;
+}
+
+.projects {
+  grid-area: projects;
+}
+
+.companies {
+  grid-area: companies;
+}/*# sourceMappingURL=style.css.map */
