@@ -129,7 +129,7 @@ main .my-details-image {
   display: grid;
   grid-template-columns: 1fr;
   margin: 0 auto;
-  width: 90vw;
+  padding: 2rem 3rem;
 }
 
 .about {
@@ -164,7 +164,8 @@ main .my-details-image {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0.5rem auto;
+  margin: 0 auto;
+  margin-bottom: 0.5rem;
   box-shadow: 0px 4px 10px 5px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   padding: 1rem 1rem;
@@ -182,6 +183,10 @@ main .my-details-image {
   color: #70ff00;
 }
 
+.bg-dark {
+  background-color: #000000;
+}
+
 .header {
   color: #70ff00;
   line-height: 57px;
@@ -196,7 +201,36 @@ main .my-details-image {
 .skills {
   grid-area: skills;
 }
+.skills .skills-table {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "tech" "soft";
+  justify-items: center;
+  align-items: start;
+}
+.skills .skills-table .tech-skills,
+.skills .skills-table .soft-skills {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+.skills .skills-table .tech-skills .image img,
+.skills .skills-table .soft-skills .image img {
+  width: 100%;
+}
+.skills .skills-table .tech-skills {
+  grid-area: tech;
+}
+.skills .skills-table .soft-skills {
+  grid-area: soft;
+}
 
+@media only screen and (min-width: 768px) {
+  .skills .skills-table {
+    gap: 3rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "tech soft";
+  }
+}
 .projects {
   grid-area: projects;
 }

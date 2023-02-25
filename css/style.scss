@@ -162,7 +162,8 @@ main {
   display: grid;
   grid-template-columns: 1fr;
   margin: 0 auto;
-  width: 90vw;
+  // width: 100vw;
+  padding: 2rem 3rem;
 }
 
 .about {
@@ -206,7 +207,8 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0.5rem auto;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
     box-shadow: 0px 4px 10px 5px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
     padding: 1rem 1rem;
@@ -227,6 +229,10 @@ main {
   color: $primary-color;
 }
 
+.bg-dark {
+  background-color: $primary-bg-color;
+}
+
 .header {
   color: $primary-color;
   line-height: 57px;
@@ -242,7 +248,46 @@ main {
 }
 .skills {
   grid-area: skills;
+
+  .skills-table {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "tech"
+      "soft";
+    justify-items: center;
+    align-items: start;
+
+    .tech-skills,
+    .soft-skills {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+
+      .image {
+        img {
+          width: 100%;
+        }
+      }
+    }
+    .tech-skills {
+      grid-area: tech;
+    }
+    .soft-skills {
+      grid-area: soft;
+    }
+  }
 }
+
+@media only screen and (min-width: $md) {
+  .skills {
+    .skills-table {
+      gap: 3rem;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-areas: "tech soft";
+    }
+  }
+}
+
 .projects {
   grid-area: projects;
 }
