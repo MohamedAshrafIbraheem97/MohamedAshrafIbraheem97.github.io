@@ -13,3 +13,8 @@ $sm: "600px"; /* Extra small devices (phones, 600px and down) */ /* AND */ /* Sm
 $md: "768px"; /* Medium devices (landscape tablets, 768px and up) */
 $lg: "992px"; /* Large devices (laptops/desktops, 992px and up) */
 $xl: "1200px"; /* Extra large devices (large laptops and desktops, 1200px and up) */
+
+:export {
+  mediumScreen: $md;
+  largeScreen: $lg;
+}

@@ -1,5 +1,7 @@
 @use "_globals" as *;
-
+html {
+  scroll-behavior: smooth;
+}
 * {
   margin: 0;
   box-sizing: border-box;
@@ -22,7 +24,10 @@ body {
     font-size: 14px;
   }
 }
+
 .container {
+  // position: relative;
+
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
@@ -31,27 +36,89 @@ body {
     "about about"
     "skills skills"
     "projects projects"
-    "companies companies";
+    "experience experience";
+}
+// .alert-modal {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   // height: 100%;
+//   // width: 100%;
+//   z-index: 12;
+//   background-color: aqua;
+// }
+.alert {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 0px;
+  transition: height 0.5s ease-in-out;
+  background-color: tomato;
+  color: black;
+  font-size: 1.5em;
+  z-index: 20;
 }
 
 nav {
   grid-area: nav;
   display: flex;
   justify-content: space-between;
-  // padding: 1rem 2rem;
-  position: sticky;
+  padding: 0 2rem;
   align-items: center;
   height: 4rem;
-  .nav-items,
-  .nav-contact-links {
-    display: flex;
-    align-items: center;
+  position: fixed;
+  background-color: $primary-bg-color;
+  z-index: 10;
+  width: 100%;
+
+  .hamburger-menu {
+    &:hover {
+      cursor: pointer;
+    }
   }
   a {
     display: block;
     text-decoration: none;
-    padding: 0.5rem 1rem;
-    margin: 0.5rem;
+  }
+  .nav-items,
+  .nav-contact-links {
+    display: flex;
+    align-items: center;
+    // display: none;
+    a {
+      padding: 0.5rem 1rem;
+      margin: 0.5rem;
+      font-size: 0.75em;
+    }
+  }
+  .nav-items {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-bg-color;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+
+    a {
+      padding: 0.5rem 1rem;
+      margin: 0.5rem;
+      font-size: 2em;
+    }
+
+    &::after {
+      position: absolute;
+      content: "x";
+      top: 1rem;
+      right: 2rem;
+      font-size: 2em;
+      cursor: pointer;
+    }
   }
   .nav-item {
     a {
@@ -71,13 +138,93 @@ nav {
     }
   }
   .logo {
+    display: none;
+
     a {
       font-weight: 900;
-      font-size: 1.2em;
+      font-size: 1.4em;
 
       color: $primary-font-color;
       span {
         color: $secondary-font-color;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $md) {
+  nav {
+    .hamburger-menu {
+      display: none;
+    }
+    a {
+      display: block;
+    }
+    .nav-items,
+    .nav-contact-links {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      position: relative;
+      a {
+        padding: 0.5rem 1rem;
+        margin: 0.5rem;
+        font-size: 0.8em;
+      }
+    }
+    .nav-items {
+      // display: flex;
+      // justify-content: center;
+      // background-color: transparent;
+      width: auto;
+      height: auto;
+
+      &::after {
+        display: none;
+        // position: ;
+        content: "x";
+        top: 1rem;
+        right: 2rem;
+        font-size: 2em;
+      }
+    }
+    .nav-item {
+      a {
+        color: $primary-font-color;
+        font-weight: 500;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+    .logo {
+      display: block;
+      a {
+        font-weight: 900;
+        font-size: 1em;
+
+        color: $primary-font-color;
+        span {
+          color: $secondary-font-color;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $lg) {
+  nav {
+    .logo {
+      a {
+        font-size: 2em;
+      }
+    }
+
+    .nav-items,
+    .nav-contact-links {
+      a {
+        font-size: 1em;
       }
     }
   }
@@ -158,12 +305,12 @@ main {
 .about,
 .skills,
 .projects,
-.companies {
+.experience {
   display: grid;
   grid-template-columns: 1fr;
   margin: 0 auto;
-  // width: 100vw;
-  padding: 2rem 3rem;
+  width: 100%;
+  padding: 2rem 4rem;
 }
 
 .about {
@@ -178,6 +325,12 @@ main {
     .about-me {
       grid-area: about-me;
       margin-bottom: 2em;
+
+      p {
+        font-size: 1.3em;
+        font-weight: 300;
+        line-height: 1.4em;
+      }
     }
 
     .about-actions {
@@ -238,7 +391,7 @@ main {
   line-height: 57px;
   margin: 2rem 0;
   font: {
-    size: 2em;
+    size: 1.4em;
     weight: 700;
   }
 
@@ -246,6 +399,15 @@ main {
     color: $primary-font-color;
   }
 }
+
+@media only screen and (min-width: $md) {
+  .header {
+    font: {
+      size: 2em;
+    }
+  }
+}
+
 .skills {
   grid-area: skills;
 
@@ -288,9 +450,167 @@ main {
   }
 }
 
+.carousel {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  transition: left 0.2s;
+}
+
 .projects {
   grid-area: projects;
+  overflow: hidden;
+  .project-card {
+    border: 2px solid $primary-color;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    position: relative;
+    margin: 0 1em;
+    width: 5rem;
+    transition: transform 0.5s ease-in-out;
+    .image {
+      img {
+        width: 100%;
+      }
+    }
+
+    &:hover {
+      transform: scale(1.2);
+      .overlay {
+        opacity: 1;
+      }
+    }
+
+    .overlay {
+      transition: opacity 0.5s;
+      opacity: 0;
+      background-color: rgba(128, 128, 128, 0.326);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      font-size: 0.8em;
+      flex-direction: column-reverse;
+      p {
+        background-color: gray;
+        padding: 0.5rem;
+      }
+      .links {
+        height: 100%;
+
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        a {
+          color: $primary-font-color;
+        }
+      }
+    }
+  }
 }
-.companies {
-  grid-area: companies;
+@media only screen and (min-width: $md) {
+  .projects {
+    .project-card {
+      width: 12rem;
+
+      .overlay {
+        font-size: 1.3em;
+      }
+    }
+  }
+}
+
+.experience {
+  grid-area: experience;
+
+  .experiences-container {
+    .experience-card {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding-bottom: 2rem;
+      // overflow: hidden;
+
+      .date {
+        justify-self: center;
+        font-size: 2em;
+        text-transform: capitalize;
+        padding-bottom: 1rem;
+      }
+      .experience-details {
+        position: relative;
+
+        .title {
+          margin-bottom: 1rem;
+          text-transform: capitalize;
+          font-size: 1.5em;
+          position: relative;
+        }
+        .desc {
+          line-height: 1.3em;
+          font-weight: 300;
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $md) {
+  .experiences-container {
+    .experience-card {
+      display: grid;
+      grid-template-columns: 1fr 4fr;
+      padding-bottom: 1rem;
+      column-gap: 1rem;
+
+      .date {
+        justify-self: center;
+        font-size: 1.5em;
+        text-transform: capitalize;
+      }
+      .experience-details {
+        padding-left: 3rem;
+        position: relative;
+
+        .title {
+          margin-bottom: 1rem;
+          text-transform: capitalize;
+          font-size: 1.5em;
+          position: relative;
+
+          &::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: -3rem;
+            width: 15px;
+            height: 15px;
+            border: 4px solid $primary-color;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            background-color: $primary-bg-color;
+          }
+        }
+        .desc {
+          line-height: 1.3em;
+          font-weight: 300;
+          font-size: 1.2em;
+        }
+
+        &::before {
+          position: absolute;
+          content: "";
+          transform: translateX(-50%);
+          top: -1rem;
+          left: 0;
+          width: 4px;
+          height: calc(100% + 1rem);
+          background-color: $primary-color;
+        }
+      }
+    }
+  }
 }

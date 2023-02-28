@@ -2,6 +2,15 @@
 /* Medium devices (landscape tablets, 768px and up) */
 /* Large devices (laptops/desktops, 992px and up) */
 /* Extra large devices (large laptops and desktops, 1200px and up) */
+:export {
+  mediumScreen: "768px";
+  largeScreen: "992px";
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
@@ -22,27 +31,77 @@ body {
 .container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-areas: "nav nav" "main main" "about about" "skills skills" "projects projects" "companies companies";
+  grid-template-areas: "nav nav" "main main" "about about" "skills skills" "projects projects" "experience experience";
+}
+
+.alert {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 0px;
+  transition: height 0.5s ease-in-out;
+  background-color: tomato;
+  color: black;
+  font-size: 1.5em;
+  z-index: 20;
 }
 
 nav {
   grid-area: nav;
   display: flex;
   justify-content: space-between;
-  position: sticky;
+  padding: 0 2rem;
   align-items: center;
   height: 4rem;
+  position: fixed;
+  background-color: #000000;
+  z-index: 10;
+  width: 100%;
+}
+nav .hamburger-menu:hover {
+  cursor: pointer;
+}
+nav a {
+  display: block;
+  text-decoration: none;
 }
 nav .nav-items,
 nav .nav-contact-links {
   display: flex;
   align-items: center;
 }
-nav a {
-  display: block;
-  text-decoration: none;
+nav .nav-items a,
+nav .nav-contact-links a {
   padding: 0.5rem 1rem;
   margin: 0.5rem;
+  font-size: 0.75em;
+}
+nav .nav-items {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+nav .nav-items a {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  font-size: 2em;
+}
+nav .nav-items::after {
+  position: absolute;
+  content: "x";
+  top: 1rem;
+  right: 2rem;
+  font-size: 2em;
+  cursor: pointer;
 }
 nav .nav-item a {
   color: #fff;
@@ -59,15 +118,77 @@ nav .nav-item .contact {
 nav .nav-item .contact:hover {
   border: 4px solid #70ff00;
 }
+nav .logo {
+  display: none;
+}
 nav .logo a {
   font-weight: 900;
-  font-size: 1.2em;
+  font-size: 1.4em;
   color: #fff;
 }
 nav .logo a span {
   color: #828282;
 }
 
+@media only screen and (min-width: 768px) {
+  nav .hamburger-menu {
+    display: none;
+  }
+  nav a {
+    display: block;
+  }
+  nav .nav-items,
+  nav .nav-contact-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+  }
+  nav .nav-items a,
+  nav .nav-contact-links a {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    font-size: 0.8em;
+  }
+  nav .nav-items {
+    width: auto;
+    height: auto;
+  }
+  nav .nav-items::after {
+    display: none;
+    content: "x";
+    top: 1rem;
+    right: 2rem;
+    font-size: 2em;
+  }
+  nav .nav-item a {
+    color: #fff;
+    font-weight: 500;
+  }
+  nav .nav-item a:hover {
+    color: #70ff00;
+  }
+  nav .logo {
+    display: block;
+  }
+  nav .logo a {
+    font-weight: 900;
+    font-size: 1em;
+    color: #fff;
+  }
+  nav .logo a span {
+    color: #828282;
+  }
+}
+@media only screen and (min-width: 992px) {
+  nav .logo a {
+    font-size: 2em;
+  }
+  nav .nav-items a,
+  nav .nav-contact-links a {
+    font-size: 1em;
+  }
+}
 main {
   grid-area: main;
 }
@@ -125,11 +246,12 @@ main .my-details-image {
 .about,
 .skills,
 .projects,
-.companies {
+.experience {
   display: grid;
   grid-template-columns: 1fr;
   margin: 0 auto;
-  padding: 2rem 3rem;
+  width: 100%;
+  padding: 2rem 4rem;
 }
 
 .about {
@@ -143,6 +265,11 @@ main .my-details-image {
 .about .about-content .about-me {
   grid-area: about-me;
   margin-bottom: 2em;
+}
+.about .about-content .about-me p {
+  font-size: 1.3em;
+  font-weight: 300;
+  line-height: 1.4em;
 }
 .about .about-content .about-actions {
   grid-area: about-actions;
@@ -191,13 +318,18 @@ main .my-details-image {
   color: #70ff00;
   line-height: 57px;
   margin: 2rem 0;
-  font-size: 2em;
+  font-size: 1.4em;
   font-weight: 700;
 }
 .header span {
   color: #fff;
 }
 
+@media only screen and (min-width: 768px) {
+  .header {
+    font-size: 2em;
+  }
+}
 .skills {
   grid-area: skills;
 }
@@ -231,10 +363,148 @@ main .my-details-image {
     grid-template-areas: "tech soft";
   }
 }
-.projects {
-  grid-area: projects;
+.carousel {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  transition: left 0.2s;
 }
 
-.companies {
-  grid-area: companies;
+.projects {
+  grid-area: projects;
+  overflow: hidden;
+}
+.projects .project-card {
+  border: 2px solid #70ff00;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  position: relative;
+  margin: 0 1em;
+  width: 5rem;
+  transition: transform 0.5s ease-in-out;
+}
+.projects .project-card .image img {
+  width: 100%;
+}
+.projects .project-card:hover {
+  transform: scale(1.2);
+}
+.projects .project-card:hover .overlay {
+  opacity: 1;
+}
+.projects .project-card .overlay {
+  transition: opacity 0.5s;
+  opacity: 0;
+  background-color: rgba(128, 128, 128, 0.326);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  font-size: 0.8em;
+  flex-direction: column-reverse;
+}
+.projects .project-card .overlay p {
+  background-color: gray;
+  padding: 0.5rem;
+}
+.projects .project-card .overlay .links {
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.projects .project-card .overlay .links a {
+  color: #fff;
+}
+
+@media only screen and (min-width: 768px) {
+  .projects .project-card {
+    width: 12rem;
+  }
+  .projects .project-card .overlay {
+    font-size: 1.3em;
+  }
+}
+.experience {
+  grid-area: experience;
+}
+.experience .experiences-container .experience-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding-bottom: 2rem;
+}
+.experience .experiences-container .experience-card .date {
+  justify-self: center;
+  font-size: 2em;
+  text-transform: capitalize;
+  padding-bottom: 1rem;
+}
+.experience .experiences-container .experience-card .experience-details {
+  position: relative;
+}
+.experience .experiences-container .experience-card .experience-details .title {
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+  font-size: 1.5em;
+  position: relative;
+}
+.experience .experiences-container .experience-card .experience-details .desc {
+  line-height: 1.3em;
+  font-weight: 300;
+  font-size: 1.2em;
+}
+
+@media only screen and (min-width: 768px) {
+  .experiences-container .experience-card {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    padding-bottom: 1rem;
+    -moz-column-gap: 1rem;
+         column-gap: 1rem;
+  }
+  .experiences-container .experience-card .date {
+    justify-self: center;
+    font-size: 1.5em;
+    text-transform: capitalize;
+  }
+  .experiences-container .experience-card .experience-details {
+    padding-left: 3rem;
+    position: relative;
+  }
+  .experiences-container .experience-card .experience-details .title {
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+    font-size: 1.5em;
+    position: relative;
+  }
+  .experiences-container .experience-card .experience-details .title::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: -3rem;
+    width: 15px;
+    height: 15px;
+    border: 4px solid #70ff00;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    background-color: #000000;
+  }
+  .experiences-container .experience-card .experience-details .desc {
+    line-height: 1.3em;
+    font-weight: 300;
+    font-size: 1.2em;
+  }
+  .experiences-container .experience-card .experience-details::before {
+    position: absolute;
+    content: "";
+    transform: translateX(-50%);
+    top: -1rem;
+    left: 0;
+    width: 4px;
+    height: calc(100% + 1rem);
+    background-color: #70ff00;
+  }
 }/*# sourceMappingURL=style.css.map */
